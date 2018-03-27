@@ -1,0 +1,10 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Proto.Actor" Version="0.1.16" />
+    <PackageReference Include="Proto.Actor.Extensions" Version="0.1.16" />
+    <PackageReference Include="Proto.Schedulers.SimpleScheduler" Version="0.1.16" />
+  </ItemGroup>
+</Project>
