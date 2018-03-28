@@ -20,6 +20,11 @@ namespace backend.engine
             this._root = _actorFactory.GetActor<AppActor>("app");
         }
 
+        public void Stop()
+        {
+            this._root?.Stop();
+        }
+
         public void Post(object message)
         {
             this._root.Tell(message);
@@ -34,6 +39,7 @@ namespace backend.engine
     public interface IEngine
     {
         void Start();
+        void Stop();
         void Post(object message);
         Task<T> QueryAsync<T>(object query);
     }

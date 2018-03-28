@@ -37,8 +37,12 @@ namespace backend
         public void Configure(
             IApplicationBuilder app, 
             IHostingEnvironment env,
-            IEngine engine)
+            IEngine engine,
+            IApplicationLifetime applicationLifetime
+            )
         {
+            applicationLifetime.ApplicationStopping.Register(engine.Stop);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -47,6 +51,7 @@ namespace backend
             app.UseMvc();
             
             engine.Start();
+
         }
     }
 }

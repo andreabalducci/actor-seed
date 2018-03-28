@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using backend.engine;
+using backend.engine.Messages;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
@@ -25,16 +26,24 @@ namespace backend.Controllers
         }
 
         // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{clientId}")]
+        public async Task<ReceiveData> Get(string clientId)
         {
-            return "value";
+            return await _engine.QueryAsync<ReceiveData>(new QueryData { ClientId = clientId }).ConfigureAwait(false);
         }
 
         // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
+        [HttpPost("{clientId}")]
+        public ActionResult Post(string clientId, [FromBody]string value)
         {
+            this._engine.Post(new ReceiveData
+            {
+                ClientId = clientId,
+                TimeStamp = DateTime.UtcNow,
+                Data = value
+            });
+
+            return NoContent();
         }
 
         // PUT api/values/5
